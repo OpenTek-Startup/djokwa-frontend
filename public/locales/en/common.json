@@ -14,5 +14,8 @@
   "yes": "Yes",
   "no": "No",
   "confirm": "Confirm",
-  "close": "Close"
+  "close": "Close",
+  "page_not_found": "Sorry page not found",
+  "go_back": "Go Back",
+  "back_to_home": "Back to home"
 }

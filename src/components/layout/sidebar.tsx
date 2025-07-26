@@ -72,7 +72,7 @@ const Sidebar: React.FC = () => {
       {/* Overlay for mobile */}
       {state.sidebarOpen && (
         <div
-          className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
+          className="fixed inset-0 z-20 bg-foreground bg-opacity-50 lg:hidden"
           onClick={toggleSidebar}
         />
       )}
@@ -80,7 +80,7 @@ const Sidebar: React.FC = () => {
       {/* Sidebar */}
       <div
         className={cn(
-          'fixed left-0 top-0 z-30 h-full bg-white border-r border-gray-200 transition-all duration-300 shadow-sm',
+          'fixed left-0 top-0 z-30 h-full bg-background border-r border-gray-200 transition-all duration-300 shadow-sm',
           state.sidebarOpen ? 'w-64' : 'w-16'
         )}
       >
@@ -93,10 +93,10 @@ const Sidebar: React.FC = () => {
             )}
           >
             <div className="flex size-8 items-center justify-center rounded-lg bg-primary-600">
-              <AcademicCapIcon className="size-5 text-white" />
+              <AcademicCapIcon className="size-5 text-background" />
             </div>
             {state.sidebarOpen && (
-              <span className="ml-3 text-xl font-bold text-gray-900">
+              <span className="ml-3 text-xl font-bold text-foreground/90">
                 DJOKWA
               </span>
             )}
@@ -105,12 +105,12 @@ const Sidebar: React.FC = () => {
           {/* Toggle Button */}
           <button
             onClick={toggleSidebar}
-            className="rounded-lg p-1.5 transition-colors hover:bg-gray-100"
+            className="rounded-lg p-1.5 transition-colors hover:bg-foreground/10"
           >
             {state.sidebarOpen ? (
-              <ChevronLeftIcon className="size-5 text-gray-500" />
+              <ChevronLeftIcon className="size-5 text-foreground/50" />
             ) : (
-              <ChevronRightIcon className="size-5 text-gray-500" />
+              <ChevronRightIcon className="size-5 text-foreground/50" />
             )}
           </button>
         </div>
@@ -125,7 +125,7 @@ const Sidebar: React.FC = () => {
                 'flex items-center px-3 py-2.5 rounded-lg transition-all duration-200 group relative',
                 isActive(item.path)
                   ? 'bg-primary-50 text-primary-600'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  : 'text-foreground/70 hover:bg-foreground/10'
               )}
             >
               <item.icon className="size-6" />
@@ -137,7 +137,7 @@ const Sidebar: React.FC = () => {
             </NavLink>
           ))}
         </nav>
-        <div className="flex items-center justify-center space-x-2 border-t border-gray-200 p-4 dark:border-gray-700">
+        <div className="flex items-center justify-center space-x-2 border-t border-foreground/20 p-4">
           <ThemeSwitcher />
           <LanguageSwitcher />
         </div>

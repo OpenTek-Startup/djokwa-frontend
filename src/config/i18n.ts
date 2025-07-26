@@ -24,7 +24,8 @@ i18n
       'teachers',
       'courses',
       'auth',
-      'settings'
+      'settings',
+      'about'
     ],
     defaultNS: 'common',
 

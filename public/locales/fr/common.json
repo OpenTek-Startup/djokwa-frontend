@@ -14,5 +14,8 @@
   "yes": "Oui",
   "no": "Non",
   "confirm": "Confirmer",
-  "close": "Fermer"
+  "close": "Fermer",
+  "page_not_found": "Désolé, page introuvable",
+  "go_back": "Retourner",
+  "back_to_home": "Retour à l'accueil"
 }

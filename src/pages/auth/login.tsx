@@ -67,16 +67,16 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md space-y-6 rounded-lg bg-white p-8 shadow-md">
+    <div className="flex min-h-screen items-center justify-center bg-background/50">
+      <div className="w-full max-w-md space-y-6 rounded-lg p-8 shadow-md">
         <div className="flex flex-col items-center">
-          <div className="bg-primary-600 mb-4 flex size-12 items-center justify-center rounded-lg">
-            <AcademicCapIcon className="size-8 text-white" />
+          <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-primary-600">
+            <AcademicCapIcon className="size-8 text-foreground" />
           </div>
-          <h2 className="text-center text-2xl font-bold text-gray-900">
+          <h2 className="text-center text-2xl font-bold text-foreground/90">
             {t('login.title')}
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-foreground/60">
             {t('login.subtitle')}
           </p>
         </div>
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
               {t('login.emailLabel')}
             </label>
             <div className="relative">
-              <AtSymbolIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
+              <AtSymbolIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-foreground/40" />
               <input
                 id="email"
                 name="email"
@@ -96,7 +96,7 @@ const Login: React.FC = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 shadow-sm placeholder:text-gray-400 focus:outline-none"
+                className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 shadow-sm placeholder:text-foreground/40 focus:border-primary-500 focus:outline-none focus:ring-primary-500"
                 placeholder={t('login.emailPlaceholder')}
               />
             </div>
@@ -107,7 +107,7 @@ const Login: React.FC = () => {
               {t('login.passwordLabel')}
             </label>
             <div className="relative">
-              <LockClosedIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
+              <LockClosedIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-foreground/40" />
               <input
                 id="password"
                 name="password"
@@ -116,7 +116,7 @@ const Login: React.FC = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="focus:ring-primary-500 focus:border-primary-500 w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 shadow-sm placeholder:text-gray-400 focus:outline-none"
+                className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 shadow-sm placeholder:text-foreground/40 focus:border-primary-500 focus:outline-none focus:ring-primary-500"
                 placeholder={t('login.passwordPlaceholder')}
               />
             </div>
@@ -128,7 +128,7 @@ const Login: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 disabled:bg-primary-300 flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2"
+              className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-primary-300"
             >
               {loading ? t('login.loadingButton') : t('login.submitButton')}
             </button>

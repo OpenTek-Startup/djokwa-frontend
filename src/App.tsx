@@ -22,9 +22,10 @@ import ErrorBoundary from './components/common/error-boundary'
 
 // Import styles
 import './styles/globals.css'
-import './i18n'
+import './config/i18n'
 import { AppProvider } from './contexts/app-context'
 import { useApp } from './contexts/use-app'
+import NotFoundPage from 'components/common/404'
 
 // Protected Route Component
 interface ProtectedRouteProps {
@@ -70,7 +71,7 @@ const AppRoutes: React.FC = () => {
       </Route>
 
       {/* Fallback */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }
@@ -126,7 +127,7 @@ const AppContent: React.FC = () => {
   return (
     <ErrorBoundary>
       <Router>
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-background/50">
           <AppRoutes />
         </div>
       </Router>
