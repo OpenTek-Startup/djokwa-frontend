@@ -1,0 +1,18 @@
+{
+  "loading": "Chargement...",
+  "save": "Enregistrer",
+  "cancel": "Annuler",
+  "delete": "Supprimer",
+  "edit": "Modifier",
+  "add": "Ajouter",
+  "search": "Rechercher",
+  "filter": "Filtrer",
+  "export": "Exporter",
+  "import": "Importer",
+  "refresh": "Actualiser",
+  "actions": "Actions",
+  "yes": "Oui",
+  "no": "Non",
+  "confirm": "Confirmer",
+  "close": "Fermer"
+}

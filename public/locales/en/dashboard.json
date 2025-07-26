@@ -1,0 +1,35 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome back, {{name}}!",
+  "overview": "Overview",
+  "statistics": {
+    "totalStudents": "Total Students",
+    "totalTeachers": "Total Teachers",
+    "totalCourses": "Total Courses",
+    "activeEnrollments": "Active Enrollments"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "addStudent": "Add New Student",
+    "addTeacher": "Add New Teacher",
+    "createCourse": "Create Course",
+    "viewReports": "View Reports"
+  },
+  "recentActivities": {
+    "title": "Recent Activities",
+    "noActivities": "No recent activities"
+  },
+  "upcomingEvents": {
+    "title": "Upcoming Events",
+    "noEvents": "No upcoming events"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "students": "Students",
+    "teachers": "Teachers",
+    "courses": "Courses",
+    "reports": "Reports",
+    "settings": "Settings",
+    "logout": "Logout"
+  }
+}

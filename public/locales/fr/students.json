@@ -1,0 +1,57 @@
+{
+  "title": "Gestion des Étudiants",
+  "addStudent": "Ajouter un Nouvel Étudiant",
+  "editStudent": "Modifier l'Étudiant",
+  "studentDetails": "Détails de l'Étudiant",
+  "studentList": "Liste des Étudiants",
+  "form": {
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "email": "Adresse e-mail",
+    "phone": "Numéro de téléphone",
+    "dateOfBirth": "Date de naissance",
+    "address": "Adresse",
+    "enrollmentDate": "Date d'inscription",
+    "studentId": "ID Étudiant",
+    "grade": "Niveau scolaire",
+    "parentContact": "Contact Parent",
+    "emergencyContact": "Contact d'urgence"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Nom",
+    "email": "E-mail",
+    "grade": "Niveau",
+    "enrollmentDate": "Date d'inscription",
+    "status": "Statut",
+    "actions": "Actions"
+  },
+  "status": {
+    "active": "Actif",
+    "inactive": "Inactif",
+    "graduated": "Diplômé",
+    "transferred": "Transféré"
+  },
+  "actions": {
+    "view": "Voir les Détails",
+    "edit": "Modifier l'Étudiant",
+    "delete": "Supprimer l'Étudiant",
+    "enroll": "Inscrire au Cours",
+    "viewGrades": "Voir les Notes",
+    "sendMessage": "Envoyer un Message"
+  },
+  "messages": {
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cet étudiant ?",
+    "deleteSuccess": "Étudiant supprimé avec succès",
+    "saveSuccess": "Informations de l'étudiant enregistrées avec succès",
+    "saveError": "Erreur lors de l'enregistrement des informations de l'étudiant"
+  },
+  "search": {
+    "placeholder": "Rechercher des étudiants par nom, e-mail ou ID...",
+    "noResults": "Aucun étudiant trouvé correspondant à votre recherche"
+  },
+  "filters": {
+    "allGrades": "Tous les Niveaux",
+    "allStatuses": "Tous les Statuts"
+  }
+}

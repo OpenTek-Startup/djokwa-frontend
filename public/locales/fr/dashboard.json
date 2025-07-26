@@ -1,0 +1,35 @@
+{
+  "title": "Tableau de Bord",
+  "welcome": "Bienvenue, {{name}}!",
+  "overview": "Vue d'ensemble",
+  "statistics": {
+    "totalStudents": "Nombre total d'étudiants",
+    "totalTeachers": "Nombre total d'enseignants",
+    "totalCourses": "Nombre total de cours",
+    "activeEnrollments": "Inscriptions actives"
+  },
+  "quickActions": {
+    "title": "Actions Rapides",
+    "addStudent": "Ajouter un Nouvel Étudiant",
+    "addTeacher": "Ajouter un Nouvel Enseignant",
+    "createCourse": "Créer un Cours",
+    "viewReports": "Voir les Rapports"
+  },
+  "recentActivities": {
+    "title": "Activités Récentes",
+    "noActivities": "Aucune activité récente"
+  },
+  "upcomingEvents": {
+    "title": "Événements à Venir",
+    "noEvents": "Aucun événement à venir"
+  },
+  "navigation": {
+    "dashboard": "Tableau de Bord",
+    "students": "Étudiants",
+    "teachers": "Enseignants",
+    "courses": "Cours",
+    "reports": "Rapports",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  }
+}
