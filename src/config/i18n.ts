@@ -14,7 +14,7 @@ i18n
   .init({
     lng: 'en', // Default language
     fallbackLng: 'en',
-    debug: process.env.NODE_ENV === 'development',
+    debug: import.meta.env.DEV,
 
     // Namespace configuration
     ns: [

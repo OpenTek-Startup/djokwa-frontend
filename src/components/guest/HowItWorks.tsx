@@ -108,7 +108,7 @@ const HowItWorks = () => {
             duration: 1
           }}
         >
-          <Link to="/auth/login" className="block w-full text-background">
+          <Link to="/register" className="block w-full text-background">
             Create Account
           </Link>
         </MyButton>

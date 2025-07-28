@@ -1,142 +1,140 @@
-import React, { useState, type FormEvent, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { useApp } from '../../contexts/use-app'
-import { storage } from '../../utils'
-import { type User, UserRole } from '../../types'
-import {
-  AcademicCapIcon,
-  AtSymbolIcon,
-  LockClosedIcon
-} from '@heroicons/react/24/outline'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { motion } from 'framer-motion'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { iUser } from 'types/validation'
+import { HttpCommon } from 'config/httpCommon'
+import { Link, redirect } from 'react-router-dom'
 
-const Login: React.FC = () => {
-  const { t } = useTranslation('auth')
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { setUser, state } = useApp()
+// Define the schema for form validation using Zod
+const loginSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters long' })
+})
 
-  const [email, setEmail] = useState('admin@example.com')
-  const [password, setPassword] = useState('password')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+type LoginFormData = z.infer<typeof loginSchema>
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    if (state.isAuthenticated) {
-      navigate('/dashboard', { replace: true })
+export const LoginPage: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema)
+  })
+
+  const onSubmit = async (data: LoginFormData) => {
+    setIsSubmitting(true)
+    try {
+      const response = await HttpCommon.post<{ teacher: iUser }>(
+        '/teacher/sign-in',
+        data
+      )
+      toast.success('Login successful!')
+      console.log(response.data)
+      redirect('/dashboard')
+    } catch (error) {
+      toast.error('Login failed. Please check your credentials.')
+      console.error(error)
+    } finally {
+      setIsSubmitting(false)
     }
-  }, [state.isAuthenticated, navigate])
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setError(null)
-
-    if (!email || !password) {
-      setError(t('login.errors.emptyFields'))
-      return
-    }
-
-    setLoading(true)
-
-    // --- Mock Authentication ---
-    // In a real app, you would make an API call here.
-    // For example: const user = await api.auth.login({ email, password });
-    setTimeout(() => {
-      if (email === 'admin@example.com' && password === 'password') {
-        const mockUser: User = {
-          id: '1',
-          firstName: 'Admin',
-          lastName: 'User',
-          email: 'admin@example.com',
-          role: UserRole.ADMIN,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
-        storage.set('user', mockUser)
-        setUser(mockUser)
-
-        const from = location.state?.from?.pathname || '/dashboard'
-        navigate(from, { replace: true })
-      } else {
-        setError(t('login.errors.invalidCredentials'))
-      }
-      setLoading(false)
-    }, 1000)
-    // --- End Mock Authentication ---
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background/50">
-      <div className="w-full max-w-md space-y-6 rounded-lg p-8 shadow-md">
-        <div className="flex flex-col items-center">
-          <div className="mb-4 flex size-12 items-center justify-center rounded-lg bg-primary-600">
-            <AcademicCapIcon className="size-8 text-foreground" />
-          </div>
-          <h2 className="text-center text-2xl font-bold text-foreground/90">
-            {t('login.title')}
-          </h2>
-          <p className="mt-2 text-center text-sm text-foreground/60">
-            {t('login.subtitle')}
-          </p>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg"
+      >
+        <h2 className="flex items-center justify-center text-center text-xl font-semibold leading-loose tracking-tight text-gray-900 sm:text-2xl">
+          Welcome back <span className="ml-2">🙃</span>
+        </h2>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label htmlFor="email" className="sr-only">
-              {t('login.emailLabel')}
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email
             </label>
-            <div className="relative">
-              <AtSymbolIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-foreground/40" />
+            <div className="relative mt-1">
               <input
                 id="email"
-                name="email"
                 type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 shadow-sm placeholder:text-foreground/40 focus:border-primary-500 focus:outline-none focus:ring-primary-500"
-                placeholder={t('login.emailPlaceholder')}
+                {...register('email')}
+                className="w-full rounded-lg border px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your email"
               />
+              {/* <FiUser className="absolute left-3 top-3 text-gray-400" /> */}
             </div>
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.email.message}
+              </p>
+            )}
           </div>
-
           <div>
-            <label htmlFor="password" className="sr-only">
-              {t('login.passwordLabel')}
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
             </label>
-            <div className="relative">
-              <LockClosedIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-foreground/40" />
+            <div className="relative mt-1">
               <input
                 id="password"
-                name="password"
                 type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-md border border-gray-300 py-2 pl-10 pr-4 shadow-sm placeholder:text-foreground/40 focus:border-primary-500 focus:outline-none focus:ring-primary-500"
-                placeholder={t('login.passwordPlaceholder')}
+                {...register('password')}
+                className="w-full rounded-lg border px-4 py-2 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your password"
               />
+              {/* <FiLock className="absolute left-3 top-3 text-gray-400" /> */}
             </div>
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.password.message}
+              </p>
+            )}
           </div>
-
-          {error && <p className="text-center text-sm text-red-600">{error}</p>}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full rounded-lg bg-blue-500 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+          >
+            {isSubmitting ? 'Logging in...' : 'Login'}
+          </motion.button>
+          <Link
+            className="text-[1rem] font-medium !text-black sm:text-xl"
+            to="#"
+            style={{ marginBottom: '2rem!important' }}
+          >
+            Forgot password?
+          </Link>
 
           <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:bg-primary-300"
-            >
-              {loading ? t('login.loadingButton') : t('login.submitButton')}
-            </button>
+            <h2 className="text-center text-lg leading-loose tracking-tight sm:text-xl">
+              New to this platform?{' '}
+              <span>
+                <Link to="register">Get Started</Link>
+              </span>
+            </h2>
           </div>
         </form>
-      </div>
+        <ToastContainer />
+      </motion.div>
     </div>
   )
 }
-
-export default Login

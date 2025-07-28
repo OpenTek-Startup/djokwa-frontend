@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { Button } from 'components/ui/button'
 import Heading from 'components/ui/heading'
 import { LanguageSwitcher } from 'components/common/language-switcher'
-import NavItem from 'components/guest/nav-item'
+import NavItem from 'components/layout/nav-item'
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar'
 import SpringModal from 'components/ui/modal'
 import { ThemeSwitcher } from 'components/common/theme-switcher'
@@ -72,7 +72,7 @@ export const Navbar = () => {
               flex-none text-lg uppercase"
             variant={'default'}
           >
-            <Link to="auth" className="block w-full">
+            <Link to="login" className="block w-full">
               login
             </Link>
           </Button>
@@ -121,7 +121,7 @@ export const Navbar = () => {
                 </Link>
               ) : (
                 <Button className="flex-none px-6 py-1">
-                  <Link to="auth" className="block w-full">
+                  <Link to="login" className="block w-full">
                     login
                   </Link>
                 </Button>

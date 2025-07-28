@@ -3,21 +3,16 @@ import { Link, Outlet } from 'react-router-dom'
 import { Button } from '../../components/ui/button'
 import { useApp } from '../../contexts/use-app'
 import { AcademicCapIcon } from '@heroicons/react/24/solid'
-import { useTranslation } from 'react-i18next'
 import Hero from 'components/guest/Hero'
 import Statistics from 'components/guest/statistics'
 import HowItWorks from 'components/guest/HowItWorks'
-import { Navbar } from 'components/layout/nav-bar'
 import { AnimatePresence, motion } from 'framer-motion'
-import Footer from 'components/guest/footer'
 
 const LandingPage: React.FC = () => {
   const { state } = useApp()
-  const { t } = useTranslation('about')
 
   return (
     <>
-      <Navbar />
       <div className="container flex min-h-screen flex-col items-center justify-center bg-background text-foreground">
         <AnimatePresence>
           <motion.div
@@ -59,8 +54,6 @@ const LandingPage: React.FC = () => {
                 )}
               </div>
             </div>
-            <h1>{t('title')}</h1>
-            <p>{t('description')}</p>
             <Hero />
             <Statistics />
             <HowItWorks />
@@ -68,7 +61,6 @@ const LandingPage: React.FC = () => {
           </motion.div>
         </AnimatePresence>
       </div>
-      <Footer />
     </>
   )
 }

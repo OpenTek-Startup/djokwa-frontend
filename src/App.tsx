@@ -1,31 +1,22 @@
 import React, { useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate
-} from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { storage } from './utils'
-
-import type { User, LanguageConfig } from './types'
-// Import components (we'll create these next)
+import type { User, LanguageConfig, UserRole } from './types'
 import Layout from './components/layout/layout'
-import Dashboard from './pages/dashboard/dashboard'
-import StudentRoutes from './pages/students/StudentRoutes'
-import TeacherRoutes from './pages/teachers/TeacherRoutes'
-import CourseRoutes from './pages/courses/CourseRoutes'
-import Login from './pages/auth/login'
-import LandingPage from './pages/landing/landing-page'
 import LoadingSpinner from './components/common/loading-spinner'
 import ErrorBoundary from './components/common/error-boundary'
-
-// Import styles
+import { getRoutesForRole } from './routes'
 import './styles/globals.css'
 import './config/i18n'
 import { AppProvider } from './contexts/app-context'
 import { useApp } from './contexts/use-app'
 import NotFoundPage from 'components/common/404'
+import { AboutUs, ContactUs, LandingPage } from 'pages/guest'
+import { LayoutGuest } from 'components/layout'
+import { LoginPage } from 'pages/auth/login'
+import { BrowserRouter } from 'react-router-dom'
+import { RegisterPage } from 'pages/auth/register'
 
 // Protected Route Component
 interface ProtectedRouteProps {
@@ -52,8 +43,21 @@ const AppRoutes: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<Login />} />
+      {/* Guest Routes */}
+      <Route element={<LayoutGuest />}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/services" element={<h1>Services</h1>} />
+        <Route path="/pricing" element={<h1>Pricing</h1>} />
+        <Route path="/faq" element={<h1>FAQ</h1>} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<h1>Forgot Password</h1>} />
+        <Route path="/reset-password" element={<h1>Reset Password</h1>} />
+        <Route path="/verify-email" element={<h1>Verify Email</h1>} />
+        <Route path="/verify-phone" element={<h1>Verify Phone</h1>} />
+      </Route>
 
       {/* Protected Routes */}
       <Route
@@ -63,11 +67,7 @@ const AppRoutes: React.FC = () => {
           </ProtectedRoute>
         }
       >
-        <Route path="/dashboard" element={<Dashboard />} />
-
-        {StudentRoutes()}
-        {TeacherRoutes()}
-        {CourseRoutes()}
+        {getRoutesForRole(state.user?.role as UserRole)}
       </Route>
 
       {/* Fallback */}
@@ -126,11 +126,11 @@ const AppContent: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <Router>
+      <BrowserRouter>
         <div className="min-h-screen bg-background/50">
           <AppRoutes />
         </div>
-      </Router>
+      </BrowserRouter>
     </ErrorBoundary>
   )
 }

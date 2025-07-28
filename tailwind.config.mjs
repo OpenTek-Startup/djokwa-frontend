@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import { error } from 'console'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
 export default {
@@ -45,6 +46,10 @@ export default {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))'
+        },
+        error: {
+          DEFAULT: 'hsl(var(--error))',
+          foreground: 'hsl(var(--error-foreground))'
         }
       },
       borderRadius: {

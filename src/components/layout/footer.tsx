@@ -68,7 +68,7 @@ const Footer = () => {
               <Link to="/contact">Testimonials</Link>
             </li>
             <li className="flex items-center gap-x-1">
-              <Link to="#">Services</Link>
+              <Link to="services">Services</Link>
             </li>
           </ol>
         </div>
