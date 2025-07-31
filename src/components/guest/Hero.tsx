@@ -4,34 +4,11 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Button } from 'components/ui/button'
 import { AnimatedText } from 'components/ui/animated-text'
+import { useTranslation } from 'react-i18next'
 const Hero = () => {
+  const { t } = useTranslation('landing')
   // hero section here but more can be added to make the hero page looks great
-  const words = [
-    {
-      word: 'Ensure'
-    },
-    {
-      word: 'a'
-    },
-    {
-      word: 'better'
-    },
-    {
-      word: 'follow-up',
-      className: 'text-[var(--color-bg-sidebar)] w-full md:w-fit'
-    },
-    {
-      word: 'for'
-    },
-    {
-      word: 'your'
-    },
-    {
-      word: 'Institution',
-      className:
-        'before--style text-[var(--color-bg-sidebar)] w-full  uppercase font-bold '
-    }
-  ]
+  const words = t('hero.titleWords', { returnObjects: true }) as any[]
 
   const img_variants = {
     initial: {
@@ -68,14 +45,14 @@ const Hero = () => {
             tracking-tight leading-[2.2rem] lg:leading-[1.1] mb-6 capitalize 
             '>
                         Ensure a better follow-up for your <span className='font-bold text-pink-600'>Institute </span>
-                    </Heading> */}
-          <p className="mb-6 text-center text-lg leading-tight text-foreground/60 md:text-start lg:text-xl ">
-            Follow up and management made easy for you and your institute{' '}
+          </Heading> */}
+          <p className="mb-6 text-center text-lg leading-tight text-foreground/60 md:text-start lg:text-xl">
+            {t('hero.description')}
           </p>
 
           <div className="mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-2 lg:gap-2 ">
             <Button className="" variant={'default'} size="lg">
-              Get started
+              {t('hero.getStarted')}
             </Button>
             {/* this button was not on the design */}
             <Button variant={'secondary'} size="lg">
@@ -83,7 +60,7 @@ const Hero = () => {
                 to={'#'} // link to the desire page here
                 className="block"
               >
-                Learn More{' '}
+                {t('hero.learnMore')}
                 {/* the learn more button can redirect the user to 
                         about page or scroll to show the user the steps s/he can use to create an account
                         */}

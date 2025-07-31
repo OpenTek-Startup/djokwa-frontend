@@ -1,0 +1,64 @@
+{
+  "pageTitle": "Bienvenue à l'école DJOKWA",
+  "pageDescription": "Votre solution moderne et tout-en-un pour gérer les étudiants, les enseignants et les cours avec facilité et efficacité.",
+  "goToDashboard": "Aller au tableau de bord",
+  "login": "Connectez-vous à votre compte",
+  "hero": {
+    "title": "Assurez un meilleur suivi pour votre Institution",
+    "titleWords": [
+      { "word": "Assurez" },
+      { "word": "un" },
+      { "word": "meilleur" },
+      {
+        "word": "suivi",
+        "className": "text-[var(--color-bg-sidebar)] w-full md:w-fit"
+      },
+      { "word": "pour" },
+      { "word": "votre" },
+      {
+        "word": "Institution",
+        "className": "before--style text-[var(--color-bg-sidebar)] w-full  uppercase font-bold "
+      }
+    ],
+    "description": "Le suivi et la gestion simplifiés pour vous et votre institut.",
+    "getStarted": "Commencer",
+    "learnMore": "En savoir plus"
+  },
+  "statistics": {
+    "students": "Total des Étudiants",
+    "tutors": "Tuteurs Solides",
+    "parents": "Parents Satisfaits"
+  },
+  "howItWorks": {
+    "title": "Comment ça marche",
+    "titleWords": [
+      { "word": "Comment" },
+      {
+        "word": "ça",
+        "className": "text-[var(--color-bg-sidebar)] font-bold italic [text-shadow:_0_1px_0_var(--tw-shadow-color,blue)]"
+      },
+      {
+        "word": "marche",
+        "className": "text-[var(--color-bg-sidebar)] font-bold italic [text-shadow:_0_1px_0_var(--tw-shadow-color,blue)]"
+      }
+    ],
+    "backgroundTitle": "MARCHE",
+    "step1": {
+      "title": "S'inscrire",
+      "description": "Ceci est juste une description minimale, vous pouvez la modifier pour la rendre plus précise pour n'importe qui. Par exemple, vous pouvez même ajouter un champ qui contient un lien pour rediriger l'utilisateur vers un endroit spécifique de la plateforme, par ex. créer un compte.",
+      "link": "Créer un compte"
+    },
+    "step2": {
+      "title": "Configurer le paramètre d'instruction",
+      "description": "Ceci est juste une description minimale, vous pouvez la modifier pour la rendre plus précise pour n'importe qui. Par exemple, vous pouvez même ajouter un champ qui contient un lien pour rediriger l'utilisateur vers un endroit spécifique de la plateforme, par ex. créer un compte.",
+      "linkText": "Suivez ce lien pour définir les instructions",
+      "link": "instruction"
+    },
+    "step3": {
+      "title": "Commencer à travailler",
+      "description": "Ceci est juste une description minimale, vous pouvez la modifier pour la rendre plus précise pour n'importe qui. Par exemple, vous pouvez même ajouter un champ qui contient un lien pour rediriger l'utilisateur vers un endroit spécifique de la plateforme, par ex. créer un compte.",
+      "linkText": "Déjà utilisateur",
+      "link": "se connecter"
+    }
+  }
+}

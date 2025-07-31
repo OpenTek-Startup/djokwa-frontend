@@ -1,6 +1,8 @@
 import { AnimatedNumber } from '../ui/animated-text'
 import { cn } from '../../utils'
+import { useTranslation } from 'react-i18next'
 const Statistics = () => {
+  const { t } = useTranslation('landing')
   interface iStat {
     number: number
     text: string
@@ -9,15 +11,15 @@ const Statistics = () => {
   const stats: iStat[] = [
     {
       number: 500,
-      text: 'Total Students'
+      text: t('statistics.students')
     },
     {
       number: 1000,
-      text: 'Solid Tuitors'
+      text: t('statistics.tutors')
     },
     {
       number: 4500,
-      text: 'Satified Parents'
+      text: t('statistics.parents')
     }
   ]
 

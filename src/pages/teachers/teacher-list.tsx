@@ -21,7 +21,7 @@ import { PlusCircle, Edit, Trash2 } from 'lucide-react'
 // Mock data - replace with your actual API call
 const mockTeachers: Teacher[] = [
   {
-    id: '1',
+    id: 1,
     firstName: 'John',
     lastName: 'Doe',
     email: 'john.doe@example.com',
@@ -36,7 +36,7 @@ const mockTeachers: Teacher[] = [
     updatedAt: new Date()
   },
   {
-    id: '2',
+    id: 2,
     firstName: 'Jane',
     lastName: 'Smith',
     email: 'jane.smith@example.com',
@@ -51,7 +51,7 @@ const mockTeachers: Teacher[] = [
     updatedAt: new Date()
   },
   {
-    id: '3',
+    id: 3,
     firstName: 'Peter',
     lastName: 'Jones',
     email: 'peter.jones@example.com',
@@ -94,7 +94,7 @@ const TeacherList: React.FC = () => {
     fetchTeachers()
   }, [t])
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: number) => {
     if (
       window.confirm(
         t('common.confirmDelete', 'Are you sure you want to delete this item?')

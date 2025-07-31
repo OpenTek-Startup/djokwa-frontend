@@ -1,0 +1,64 @@
+{
+  "pageTitle": "Welcome to DJOKWA School",
+  "pageDescription": "Your modern, all-in-one solution for managing students, teachers, and courses with ease and efficiency.",
+  "goToDashboard": "Go to Dashboard",
+  "login": "Login to Your Account",
+  "hero": {
+    "title": "Ensure a better follow-up for your Institution",
+    "titleWords": [
+      { "word": "Ensure" },
+      { "word": "a" },
+      { "word": "better" },
+      {
+        "word": "follow-up",
+        "className": "text-[var(--color-bg-sidebar)] w-full md:w-fit"
+      },
+      { "word": "for" },
+      { "word": "your" },
+      {
+        "word": "Institution",
+        "className": "before--style text-[var(--color-bg-sidebar)] w-full  uppercase font-bold "
+      }
+    ],
+    "description": "Follow up and management made easy for you and your institute.",
+    "getStarted": "Get started",
+    "learnMore": "Learn More"
+  },
+  "statistics": {
+    "students": "Total Students",
+    "tutors": "Solid Tutors",
+    "parents": "Satisfied Parents"
+  },
+  "howItWorks": {
+    "title": "How it Works",
+    "titleWords": [
+      { "word": "How" },
+      {
+        "word": "it",
+        "className": "text-[var(--color-bg-sidebar)] font-bold italic [text-shadow:_0_1px_0_var(--tw-shadow-color,blue)]"
+      },
+      {
+        "word": "Works",
+        "className": "text-[var(--color-bg-sidebar)] font-bold italic [text-shadow:_0_1px_0_var(--tw-shadow-color,blue)]"
+      }
+    ],
+    "backgroundTitle": "WORKS",
+    "step1": {
+      "title": "Register / Sign up",
+      "description": "This is just a minimal description here, you can edit this to make it more precise for anyone. For example, you can even add a field that contains a link to redirect the user to a specific place in the platform e.g., create account.",
+      "link": "Create Account"
+    },
+    "step2": {
+      "title": "Set up the instruction parameter",
+      "description": "This is just a minimal description here, you can edit this to make it more precise for anyone. For example, you can even add a field that contains a link to redirect the user to a specific place in the platform e.g., create account.",
+      "linkText": "Follow this link to set the instructions",
+      "link": "instruction"
+    },
+    "step3": {
+      "title": "Start Working",
+      "description": "This is just a minimal description here, you can edit this to make it more precise for anyone. For example, you can even add a field that contains a link to redirect the user to a specific place in the platform e.g., create account.",
+      "linkText": "Already a user",
+      "link": "login"
+    }
+  }
+}

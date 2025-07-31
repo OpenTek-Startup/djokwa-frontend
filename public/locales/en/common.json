@@ -17,5 +17,38 @@
   "close": "Close",
   "page_not_found": "Sorry page not found",
   "go_back": "Go Back",
-  "back_to_home": "Back to home"
+  "back_to_home": "Back to home",
+  "navbar": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "about-us": "About Us",
+    "contact-us": "Contact Us",
+    "login": "Login"
+  },
+  "footer": {
+    "subscribe": {
+      "placeholder": "Enter Email Address",
+      "button": "Subscribe"
+    },
+    "tagline": "Follow up and management made easy for you",
+    "contact": {
+      "title": "Contact Us",
+      "phone": "66266322",
+      "email": "example@gmail.example"
+    },
+    "company": {
+      "title": "Company",
+      "about": "About Us",
+      "testimonials": "Testimonials",
+      "services": "Services"
+    }
+  },
+  "header": {
+    "title": "Welcome to DJOKWA",
+    "subtitle": "Your one-stop solution for educational management",
+    "searchPlaceholder": "Rechercher des étudiants, enseignants ou cours...",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  }
 }

@@ -36,15 +36,21 @@ const singleword: any = {
   }
 }
 interface iWord {
-  word: string
+  word?: string
   className?: string
 }
 export const SplitText = ({ words }: { words: iWord[] }) => {
+  // Guard against `words` not being an array, which can happen
+  // during the initial render before translations are loaded.
+  if (!Array.isArray(words)) {
+    return null
+  }
+
   const _words = words.map((word, index) => (
     <motion.span
       variants={singleword}
       className={cn('inline-block', word.className)}
-      key={index + word.word}
+      key={index + (word.word || '')}
     >
       {word.word} &nbsp;
     </motion.span>
@@ -64,20 +70,33 @@ export const AnimatedText = ({
   inView,
   amount
 }: iAnimatedProps) => {
+  const ref = useRef(null)
+  // We only want the "inView" animation logic if the `inView` prop is explicitly true.
+  // We also set `once: true` to prevent re-animation on scroll.
+  const isInViewHook = useInView(ref, { once: true, amount: amount || 0.2 })
+
+  // Determine which animation state to use.
+  // If `inView` prop is true, we use the `isInViewHook` state from the hook.
+  // Otherwise, we just animate immediately.
+  const animationControl = inView
+    ? isInViewHook
+      ? 'animate'
+      : 'initial'
+    : 'animate'
+
   return (
     <div
       className={cn(` w-full  mx-auto  py-2 flex items-center justify-center text-center 
             overflow-hidden`)}
     >
       <motion.h1
+        ref={ref} // Attach the ref here
         variants={qoute}
         initial="initial"
-        animate={inView ? false : 'animate'}
-        whileInView={inView ? 'animate' : ''}
-        viewport={{ once: true, amount: amount ? amount : 0.2 }}
+        animate={animationControl} // Use our derived control state
         className={cn(
           `break-words
-                inline-block w-full text-dark font-black  capitalize
+                inline-block w-full text-dark font-black capitalize
                 text-6xl`,
           className
         )}

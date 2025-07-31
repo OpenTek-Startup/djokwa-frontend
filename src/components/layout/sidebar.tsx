@@ -89,9 +89,10 @@ const Sidebar: React.FC = () => {
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
           <div
             className={cn(
-              'flex items-center transition-opacity duration-300',
+              'flex items-center transition-opacity duration-300 cursor-pointer',
               state.sidebarOpen ? 'opacity-100' : 'opacity-0'
             )}
+            onClick={() => (window.location.href = '/')}
           >
             <div className="flex size-8 items-center justify-center rounded-lg ">
               <IconSprite name="djokwa" />

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  Role,
   iParent,
   iRegisterUser,
   iStudent,
@@ -19,6 +18,7 @@ import HandleGetFileFromStorage from 'components/ui/HandleGetFileFromStorage'
 import { Label } from 'components/ui/label'
 import { useApp } from 'contexts/use-app'
 import { type User } from 'contexts/app-context'
+import { UserRole } from 'types'
 
 export const RegisterPage = () => {
   const {
@@ -38,7 +38,7 @@ export const RegisterPage = () => {
   const onSubmit = async (formData: iRegisterUser) => {
     console.log('Data to be submitted:', formData)
 
-    const role = formData.role as Role
+    const role = formData.role as UserRole
 
     let apiEndpoint = ''
     let userPayload: iStudent | iTeacher | iParent | null = null

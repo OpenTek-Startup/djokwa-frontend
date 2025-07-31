@@ -4,8 +4,11 @@ import { motion } from 'framer-motion'
 import { Button } from 'components/ui/button'
 import { AnimatedText } from 'components/ui/animated-text'
 import Heading from 'components/ui/heading'
+import { useTranslation } from 'react-i18next'
 
 const HowItWorks = () => {
+  const { t } = useTranslation('landing')
+
   // interface for the steps array element
   interface iStep {
     heading: string
@@ -89,9 +92,8 @@ const HowItWorks = () => {
   }
   const steps: readonly iStep[] = [
     {
-      heading: 'Register /Sign up',
-      description:
-        'this is just a minimal description here ,you can edit this to make it more precise for any one to for may you can even add a field can contains a link to redirect to user to a specific place in the platform e.g create account',
+      heading: t('howItWorks.step1.title'),
+      description: t('howItWorks.step1.description'),
       index: 1,
       RenderLink: (
         <MyButton
@@ -109,46 +111,44 @@ const HowItWorks = () => {
           }}
         >
           <Link to="/register" className="block w-full text-background">
-            Create Account
+            {t('howItWorks.step1.link')}
           </Link>
         </MyButton>
       )
     },
     {
-      heading: 'Set up the instruction parameter',
-      description:
-        'this is just a minimal description here ,you can edit this to make it more precise for any one to for may you can even add a field can contains a link to redirect to user to a specific place in the platform e.g create account',
+      heading: t('howItWorks.step2.title'),
+      description: t('howItWorks.step2.description'),
       index: 2,
       RenderLink: (
         <>
           {/* <br /> */}
           <p>
-            Follow this link set the instructions{' '}
+            {t('howItWorks.step2.linkText')}{' '}
             <MyLink
               className="italic underline underline-offset-2"
               to={'instruction/create'}
             >
-              instruction &nbsp;
+              {t('howItWorks.step2.link')}&nbsp;
             </MyLink>
           </p>
         </>
       )
     },
     {
-      heading: 'Start Working',
-      description:
-        'this is just a minimal description here ,you can edit this to make it more precise for any one to for may you can even add a field can contains a link to redirect to user to a specific place in the platform e.g create account',
+      heading: t('howItWorks.step3.title'),
+      description: t('howItWorks.step3.description'),
       index: 3,
       RenderLink: (
         <>
           {/* <br /> */}
           <p>
-            Already a user{' '}
+            {t('howItWorks.step3.linkText')}{' '}
             <MyLink
               className="italic underline underline-offset-2"
               to={'instruction/create'}
             >
-              login &nbsp;
+              {t('howItWorks.step3.link')}&nbsp;
             </MyLink>
           </p>
         </>
@@ -204,22 +204,7 @@ const HowItWorks = () => {
       </li>
     )
   }
-  const words = [
-    {
-      word: 'How'
-    },
-    {
-      word: 'its',
-      className:
-        'text-[var(--color-bg-sidebar)] font-bold italic [text-shadow:_0_1px_0_var(--tw-shadow-color,blue)]'
-    },
-
-    {
-      word: 'Works',
-      className:
-        'text-[var(--color-bg-sidebar)] font-bold italic [text-shadow:_0_1px_0_var(--tw-shadow-color,blue)]'
-    }
-  ]
+  const words = t('howItWorks.titleWords', { returnObjects: true }) as any[]
   return (
     <div className="relative z-20 mx-auto bg-background p-6 lg:px-6">
       <div className="items-start md:flex md:gap-x-8 lg:gap-x-16">
@@ -230,7 +215,7 @@ const HowItWorks = () => {
         <div className="sticky  top-0 flex-none lg:w-[min(25rem,calc(100%-2rem))] ">
           <div className="relative w-full">
             <h1 className="w-full text-center text-4xl font-black uppercase text-foreground/50 opacity-30 lg:text-5xl">
-              WORKS
+              {t('howItWorks.backgroundTitle')}
             </h1>
 
             <AnimatedText

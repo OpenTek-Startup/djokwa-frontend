@@ -25,7 +25,8 @@ i18n
       'courses',
       'auth',
       'settings',
-      'about'
+      'about',
+      'landing'
     ],
     defaultNS: 'common',
 

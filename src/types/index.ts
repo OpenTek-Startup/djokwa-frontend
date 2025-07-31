@@ -1,6 +1,6 @@
 // User Types
 export interface User {
-  id: string
+  id: number
   email: string
   fullname?: string
   firstName: string
@@ -49,7 +49,7 @@ export enum StudentStatus {
 
 // Teacher Types
 export interface Teacher {
-  id: string
+  id: number
   firstName: string
   lastName: string
   email: string

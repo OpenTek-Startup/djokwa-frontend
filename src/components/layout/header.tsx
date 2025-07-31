@@ -12,7 +12,7 @@ import { useApp } from '../../contexts/use-app'
 import { storage } from '../../utils'
 
 const Header: React.FC = () => {
-  const { t } = useTranslation('dashboard')
+  const { t } = useTranslation('common')
   const { state, logout: appLogout } = useApp()
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
           <input
             type="text"
             placeholder={t('header.searchPlaceholder')}
-            className="w-64 rounded-lg border border-transparent bg-foreground/10 py-2 pl-10 pr-4 text-sm text-foreground/70 focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-96 rounded-lg border border-transparent bg-foreground/10 py-2 pl-10 pr-4 text-sm text-foreground/70 focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
         </div>
       </div>

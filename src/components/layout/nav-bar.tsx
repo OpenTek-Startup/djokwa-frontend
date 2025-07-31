@@ -4,6 +4,7 @@
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Button } from 'components/ui/button'
 import Heading from 'components/ui/heading'
 import { LanguageSwitcher } from 'components/common/language-switcher'
@@ -39,6 +40,7 @@ const navLinks: readonly iNavProp[] = [
 ]
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const { t } = useTranslation('common')
 
   const user = useGetLoginUser() // if the user login he will update the state of the user
   // const { user:U } = useDashBoardContext() // doing this will throw an error  because we are trying to use a context outside a provider
@@ -59,7 +61,7 @@ export const Navbar = () => {
                 to={link.to}
                 key={link.to}
               >
-                {link.name}
+                {t(`navbar.${link.name}`)}
               </NavItem>
             )
           })}
@@ -74,17 +76,23 @@ export const Navbar = () => {
             variant={'default'}
           >
             <Link to="login" className="block w-full">
-              login
+              {t('navbar.login')}
             </Link>
           </Button>
         )}
       </SpringModal>
-      <nav className="sticky top-0 z-[1000] flex h-14  w-full bg-background/100 px-4 shadow-sm ">
+      <nav className="sticky top-0 z-[1000] flex h-14  w-full bg-background/100 px-16 shadow-sm ">
         <div className="mx-auto flex size-full items-center justify-between">
           <Link to="/">
-            <Heading className="my-6 flex flex-col text-center font-serif text-xl uppercase">
+            <Heading className="my-6 flex justify-center gap-2 text-center font-serif text-xl uppercase">
               {/* <IconRepository.DjokwaIcon className="mx-auto  w-3/4" /> */}
-              <IconSprite name="djokwa" />
+              <IconSprite
+                name="djokwa"
+                width="35px"
+                height="35px"
+                className="mx-auto  w-full"
+              />
+              <span>DJOKWA</span>
             </Heading>
           </Link>
           <div className="flex items-center ">
@@ -96,7 +104,7 @@ export const Navbar = () => {
                     to={link.to}
                     key={link.to}
                   >
-                    {link.name}
+                    {t(`navbar.${link.name}`)}
                   </NavItem>
                 )
               })}
@@ -123,7 +131,7 @@ export const Navbar = () => {
               ) : (
                 <Button className="flex-none px-6 py-1">
                   <Link to="/login" className="block w-full">
-                    login
+                    {t('navbar.login')}
                   </Link>
                 </Button>
               )}

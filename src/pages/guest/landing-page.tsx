@@ -1,11 +1,13 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Hero from 'components/guest/Hero'
 import Statistics from 'components/guest/statistics'
 import HowItWorks from 'components/guest/HowItWorks'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const LandingPage: React.FC = () => {
+  const location = useLocation()
+
   return (
     <>
       <div className="container flex min-h-screen flex-col items-center justify-center bg-background text-foreground">

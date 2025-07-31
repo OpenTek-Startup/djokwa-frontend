@@ -37,11 +37,11 @@ const teacherSchema = z.object({
 type TeacherFormValues = z.infer<typeof teacherSchema>
 
 // Mock function to get a teacher by ID
-const getTeacherById = (id: string): Partial<Teacher> | undefined => {
+const getTeacherById = (id: number): Partial<Teacher> | undefined => {
   // In a real app, this would be an API call.
   const mockTeachers: Partial<Teacher>[] = [
     {
-      id: '1',
+      id: 1,
       firstName: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
@@ -49,7 +49,7 @@ const getTeacherById = (id: string): Partial<Teacher> | undefined => {
       status: TeacherStatus.ACTIVE
     },
     {
-      id: '2',
+      id: 2,
       firstName: 'Jane',
       lastName: 'Smith',
       email: 'jane.smith@example.com',
@@ -57,7 +57,7 @@ const getTeacherById = (id: string): Partial<Teacher> | undefined => {
       status: TeacherStatus.ON_LEAVE
     },
     {
-      id: '3',
+      id: 3,
       firstName: 'Peter',
       lastName: 'Jones',
       email: 'peter.jones@example.com',
@@ -89,7 +89,7 @@ const TeacherForm: React.FC = () => {
     if (isEditMode) {
       // In a real app, you would fetch teacher data from an API
       // const teacherData = await api.get(`/teachers/${id}`);
-      const teacherData = getTeacherById(id)
+      const teacherData = getTeacherById(Number(id))
       if (teacherData) {
         form.reset(teacherData)
       }
