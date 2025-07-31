@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom'
 import {
-  ActionFunctionArgs,
-  Link,
-  redirect,
-  useActionData
-} from 'react-router-dom'
-import {
+  Role,
   iParent,
   iRegisterUser,
   iStudent,
@@ -21,55 +17,8 @@ import Heading from 'components/ui/heading'
 import { HttpCommon } from 'config/httpCommon'
 import HandleGetFileFromStorage from 'components/ui/HandleGetFileFromStorage'
 import { Label } from 'components/ui/label'
-
-export const registerAction = async ({ request }: ActionFunctionArgs) => {
-  const formData = await request.formData()
-  const data = Object.fromEntries(formData)
-
-  const role = data.role as string // Get the role
-  console.log(data + ' role received=' + role)
-
-  let apiEndpoint = ''
-  let userType: iStudent | iTeacher | iParent | null = null
-
-  switch (role) {
-    case 'student':
-      apiEndpoint = '/student/create'
-      userType = data as unknown as iStudent
-      break
-    case 'teacher':
-      apiEndpoint = '/teacher/sign-up'
-      userType = data as unknown as iTeacher
-      break
-    case 'parent':
-      apiEndpoint = '/parent/create'
-      userType = data as unknown as iParent
-      break
-    default:
-      toast.error('Invalid user role.')
-      return null
-  }
-
-  try {
-    const response = await HttpCommon.post<iUser>(apiEndpoint, userType)
-    console.log('The response:', response)
-    toast.success('Account created successfully!')
-
-    switch (role) {
-      case 'student':
-        return redirect('/student/dashboard')
-      case 'teacher':
-        return redirect('/teacher/dashboard')
-      case 'parent':
-        return redirect('/parent/dashboard')
-      default:
-        return redirect('/dashboard')
-    }
-  } catch (err: any) {
-    toast.error('Failed to create account')
-    return err.response?.data?.msg || null
-  }
-}
+import { useApp } from 'contexts/use-app'
+import { type User } from 'contexts/app-context'
 
 export const RegisterPage = () => {
   const {
@@ -78,45 +27,75 @@ export const RegisterPage = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<iRegisterUser>()
+  const { setUser } = useApp()
+  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmPassword: false
   })
 
-  const onSubmit = async (data: iRegisterUser) => {
-    console.log('Data to be submitted:', data)
+  const onSubmit = async (formData: iRegisterUser) => {
+    console.log('Data to be submitted:', formData)
 
-    // Create a URLSearchParams instance for the form data
-    const formData = new URLSearchParams()
+    const role = formData.role as Role
 
-    // Append data to URLSearchParams
-    for (const key in data) {
-      formData.append(key, (data as Record<string, string>)[key])
-    }
+    let apiEndpoint = ''
+    let userPayload: iStudent | iTeacher | iParent | null = null
 
-    // Create an ActionFunctionArgs object
-    const actionArgs: ActionFunctionArgs = {
-      request: new Request('', {
-        method: 'POST',
-        body: formData
-      }),
-      params: {}, // Include any necessary URL parameters here
-      context: undefined // Use context if needed in your application
+    switch (role) {
+      case 'student':
+        apiEndpoint = '/student/create'
+        userPayload = formData as unknown as iStudent
+        break
+      case 'teacher':
+        apiEndpoint = '/teacher/sign-up'
+        userPayload = formData as unknown as iTeacher
+        break
+      case 'parent':
+        apiEndpoint = '/parent/create'
+        userPayload = formData as unknown as iParent
+        break
+      default:
+        toast.error('Invalid user role.')
+        return
     }
 
     try {
-      // Call the registerAction and handle the response
-      const response = await registerAction(actionArgs)
+      const response = await HttpCommon.post<{ user: iUser; token?: string }>(
+        apiEndpoint,
+        userPayload
+      )
+      console.log('The response:', response)
+      toast.success('Account created successfully!')
 
-      if (response) {
-        // Handle successful registration (e.g., redirect or show a message)
-        console.log('Registration successful:', response)
-        // Redirect or show a success message as needed
-      } else {
-        // Handle failure (e.g., show an error message)
-        console.error('Registration failed')
-        toast.error('Registration failed. Please try again.') // Example error handling
+      if (response.data.token) {
+        document.cookie = `token=${response.data.token}; path=/; max-age=${
+          60 * 60 * 24 * 7
+        }; SameSite=Lax`
+      }
+
+      // Map API response (iUser) to application's User type
+      const { user: apiUser } = response.data
+      const userForState: User = {
+        id: apiUser.Id,
+        email: apiUser.Email,
+        firstName: apiUser.First_Name,
+        lastName: apiUser.Last_Name,
+        phone: String(apiUser.Phone), // Ensure phone is a string
+        role: apiUser.role
+      }
+      setUser(userForState)
+
+      switch (role) {
+        case 'student':
+          return navigate('/student/dashboard')
+        case 'teacher':
+          return navigate('/teacher/dashboard')
+        case 'parent':
+          return navigate('/parent/dashboard')
+        default:
+          return navigate('/dashboard')
       }
     } catch (error) {
       console.error('Error during registration:', error)
@@ -133,18 +112,18 @@ export const RegisterPage = () => {
         method="post"
         id="sigin-form"
         onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4 rounded-lg bg-white p-6 shadow-md"
+        className="space-y-4 rounded-lg p-6 shadow-md"
       >
-        <HandleGetFileFromStorage />
+        <HandleGetFileFromStorage onFileChange={() => {}} />
 
         <div className="space-y-2">
           <Label htmlFor="role">
-            Role <span className="text-red-600">*</span>
+            Role <span className="text-error/60">*</span>
           </Label>
           <select
             {...register('role', { required: 'Role is required' })}
-            className={`w-full rounded border p-2 ${
-              errors.role ? 'border-red-500' : ''
+            className={`w-full cursor-pointer rounded border bg-transparent p-2${
+              errors.role ? 'border-error/50' : ''
             }`}
             name="role"
           >
@@ -154,18 +133,18 @@ export const RegisterPage = () => {
             <option value="teacher">Teacher</option>
           </select>
           {errors.role && (
-            <span className="text-red-500">{errors.role.message}</span>
+            <span className="text-error/50">{errors.role.message}</span>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="Gender">
-            Gender <span className="text-red-600">*</span>
+            Gender <span className="text-error/60">*</span>
           </Label>
           <select
             {...register('Gender', { required: 'Gender is required' })}
-            className={`w-full rounded border p-2 ${
-              errors.Gender ? 'border-red-500' : ''
+            className={`w-full cursor-pointer rounded border bg-transparent p-2${
+              errors.Gender ? 'border-error/50' : ''
             }`}
             name="Gender"
           >
@@ -174,13 +153,13 @@ export const RegisterPage = () => {
             <option value="Female">Female</option>
           </select>
           {errors.Gender && (
-            <span className="text-red-500">{errors.Gender.message}</span>
+            <span className="text-error/50">{errors.Gender.message}</span>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="First_Name">
-            First Name <span className="text-red-600">*</span>
+            First Name <span className="text-error/60">*</span>
           </Label>
           <Input
             type="text"
@@ -192,17 +171,17 @@ export const RegisterPage = () => {
             id="First_Name"
             placeholder="Enter your first name"
             className={`w-full rounded border p-2 ${
-              errors.First_Name ? 'border-red-500' : ''
+              errors.First_Name ? 'border-error/50' : ''
             }`}
           />
           {errors.First_Name && (
-            <span className="text-red-500">{errors.First_Name.message}</span>
+            <span className="text-error/50">{errors.First_Name.message}</span>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="Last_Name">
-            Last Name <span className="text-red-600">*</span>
+            Last Name <span className="text-error/60">*</span>
           </Label>
           <Input
             type="text"
@@ -214,17 +193,17 @@ export const RegisterPage = () => {
             id="Last_Name"
             placeholder="Enter your last name"
             className={`w-full rounded border p-2 ${
-              errors.Last_Name ? 'border-red-500' : ''
+              errors.Last_Name ? 'border-error/50' : ''
             }`}
           />
           {errors.Last_Name && (
-            <span className="text-red-500">{errors.Last_Name.message}</span>
+            <span className="text-error/50">{errors.Last_Name.message}</span>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="Email">
-            Institutional Email <span className="text-red-600">*</span>
+            Institutional Email <span className="text-error/60">*</span>
           </Label>
           <Input
             type="email"
@@ -236,17 +215,17 @@ export const RegisterPage = () => {
             id="Email"
             placeholder="Enter your email"
             className={`w-full rounded border p-2 ${
-              errors.Email ? 'border-red-500' : ''
+              errors.Email ? 'border-error/50' : ''
             }`}
           />
           {errors.Email && (
-            <span className="text-red-500">{errors.Email.message}</span>
+            <span className="text-error/50">{errors.Email.message}</span>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="Phone">
-            Phone Number <span className="text-red-600">*</span>
+            Phone Number <span className="text-error/60">*</span>
           </Label>
           <Input
             type="text"
@@ -265,17 +244,17 @@ export const RegisterPage = () => {
             id="Phone"
             placeholder="Enter your phone number"
             className={`w-full rounded border p-2 ${
-              errors.Phone ? 'border-red-500' : ''
+              errors.Phone ? 'border-error/50' : ''
             }`}
           />
           {errors.Phone && (
-            <span className="text-red-500">{errors.Phone.message}</span>
+            <span className="text-error/50">{errors.Phone.message}</span>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="password">
-            Password <span className="text-red-600">*</span>
+            Password <span className="text-error/60">*</span>
           </Label>
           <Input
             type={showPassword.password ? 'text' : 'password'}
@@ -287,7 +266,7 @@ export const RegisterPage = () => {
             id="password"
             placeholder="Enter your password"
             className={`w-full rounded border p-2 ${
-              errors.password ? 'border-red-500' : ''
+              errors.password ? 'border-error/50' : ''
             }`}
           />
           <button
@@ -302,13 +281,13 @@ export const RegisterPage = () => {
             {showPassword.password ? 'Hide' : 'Show'}
           </button>
           {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+            <span className="text-error/50">{errors.password.message}</span>
           )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="confirmPassword">
-            Confirm Password <span className="text-red-600">*</span>
+            Confirm Password <span className="text-error/60">*</span>
           </Label>
           <Input
             type={showPassword.confirmPassword ? 'text' : 'password'}
@@ -321,7 +300,7 @@ export const RegisterPage = () => {
             id="confirmPassword"
             placeholder="Confirm your password"
             className={`w-full rounded border p-2 ${
-              errors.confirmPassword ? 'border-red-500' : ''
+              errors.confirmPassword ? 'border-error/50' : ''
             }`}
           />
           <button
@@ -336,7 +315,7 @@ export const RegisterPage = () => {
             {showPassword.confirmPassword ? 'Hide' : 'Show'}
           </button>
           {errors.confirmPassword && (
-            <span className="text-red-500">
+            <span className="text-error/50">
               {errors.confirmPassword.message}
             </span>
           )}
@@ -344,9 +323,8 @@ export const RegisterPage = () => {
 
         <Button
           type="submit"
-          variant={'secondary'}
+          variant={'default'}
           submittingText={<LoadingSpinner className="relative z-10 h-full" />}
-          className="h-12 w-full rounded-md bg-blue-500 text-white transition duration-200 hover:bg-blue-600"
         >
           Create An Account
         </Button>

@@ -1,9 +1,56 @@
-import React, { useReducer, useCallback, type ReactNode } from 'react'
-import { type User, type ThemeConfig, type LanguageConfig } from '../types'
+import React, {
+  useReducer,
+  useCallback,
+  type ReactNode,
+  useEffect
+} from 'react'
+import { type ThemeConfig, type LanguageConfig } from '../types'
 import { AVAILABLE_LANGUAGES } from '../config/languages'
 import { AppContext } from './use-app'
 
+// --- Cookie utility functions ---
+const setCookie = (name: string, value: string, days: number): void => {
+  let expires = ''
+  if (days) {
+    const date = new Date()
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
+    expires = '; expires=' + date.toUTCString()
+  }
+  // Add SameSite=Lax for better security
+  document.cookie = `${name}=${value || ''}${expires}; path=/; SameSite=Lax`
+}
+
+const getCookie = (name: string): string | null => {
+  const nameEQ = name + '='
+  const ca = document.cookie.split(';')
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i]
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length)
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
+  }
+  return null
+}
+
+const removeCookie = (name: string): void => {
+  document.cookie = `${name}=; Max-Age=-99999999; path=/; SameSite=Lax`
+}
+
 // App State Interface
+export interface User {
+  id: number
+  email: string
+  firstName: string
+  lastName: string
+  phone?: string
+  role:
+    | 'student'
+    | 'teacher'
+    | 'admin'
+    | 'parent'
+    | 'accountant'
+    | 'principal'
+    | 'driver'
+}
 interface AppState {
   user: User | null
   isAuthenticated: boolean
@@ -24,12 +71,13 @@ type AppAction =
   | { type: 'TOGGLE_SIDEBAR' }
   | { type: 'SET_SIDEBAR'; payload: boolean }
   | { type: 'LOGOUT' }
+  | { type: 'INITIALIZE' }
 
 // Initial State
 const initialState: AppState = {
   user: null,
   isAuthenticated: false,
-  loading: false,
+  loading: true,
   error: null,
   theme: {
     mode: 'light',
@@ -45,6 +93,11 @@ const initialState: AppState = {
 const appReducer = (state: AppState, action: AppAction): AppState => {
   switch (action.type) {
     case 'SET_USER':
+      if (action.payload) {
+        setCookie('user', JSON.stringify(action.payload), 7) // Store user for 7 days
+      } else {
+        removeCookie('user')
+      }
       return {
         ...state,
         user: action.payload,
@@ -64,11 +117,25 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         loading: false
       }
     case 'SET_THEME':
+      try {
+        setCookie(
+          'theme',
+          JSON.stringify({ ...state.theme, ...action.payload }),
+          365
+        )
+      } catch (e) {
+        console.error('Failed to set theme cookie', e)
+      }
       return {
         ...state,
         theme: { ...state.theme, ...action.payload }
       }
     case 'SET_LANGUAGE':
+      try {
+        setCookie('language', JSON.stringify(action.payload), 365)
+      } catch (e) {
+        console.error('Failed to set language cookie', e)
+      }
       return {
         ...state,
         language: action.payload
@@ -84,11 +151,33 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         sidebarOpen: action.payload
       }
     case 'LOGOUT':
+      removeCookie('user')
+      removeCookie('token') // Also remove token
       return {
         ...initialState,
+        loading: false,
         theme: state.theme,
         language: state.language
       }
+    case 'INITIALIZE': {
+      try {
+        const userCookie = getCookie('user')
+        const themeCookie = getCookie('theme')
+        const languageCookie = getCookie('language')
+        return {
+          ...initialState,
+          user: userCookie ? JSON.parse(userCookie) : null,
+          isAuthenticated: !!userCookie,
+          theme: themeCookie ? JSON.parse(themeCookie) : initialState.theme,
+          language: languageCookie
+            ? JSON.parse(languageCookie)
+            : initialState.language,
+          loading: false
+        }
+      } catch (error) {
+        return { ...initialState, loading: false }
+      }
+    }
     default:
       return state
   }
@@ -116,6 +205,10 @@ interface AppProviderProps {
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState)
+
+  useEffect(() => {
+    dispatch({ type: 'INITIALIZE' })
+  }, [])
 
   // Helper functions
   const setUser = useCallback((user: User | null) => {
@@ -147,6 +240,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, [])
 
   const logout = useCallback(() => {
+    // If you store tokens in HttpCommon headers, clear it here.
+    // For example: HttpCommon.defaults.headers.common['Authorization'] = '';
     dispatch({ type: 'LOGOUT' })
   }, [])
 

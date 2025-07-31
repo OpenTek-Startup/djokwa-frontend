@@ -15,6 +15,7 @@ import { cn } from '../../utils'
 import { useApp } from '../../contexts/use-app'
 import { ThemeSwitcher } from 'components/common/theme-switcher'
 import { LanguageSwitcher } from 'components/common/language-switcher'
+import IconSprite from 'components/ui/iconSprite'
 
 interface NavigationItem {
   key: string
@@ -92,8 +93,8 @@ const Sidebar: React.FC = () => {
               state.sidebarOpen ? 'opacity-100' : 'opacity-0'
             )}
           >
-            <div className="flex size-8 items-center justify-center rounded-lg bg-primary-600">
-              <AcademicCapIcon className="size-5 text-background" />
+            <div className="flex size-8 items-center justify-center rounded-lg ">
+              <IconSprite name="djokwa" />
             </div>
             {state.sidebarOpen && (
               <span className="ml-3 text-xl font-bold text-foreground/90">

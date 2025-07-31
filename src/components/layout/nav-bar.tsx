@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar'
 import SpringModal from 'components/ui/modal'
 import { ThemeSwitcher } from 'components/common/theme-switcher'
 import useGetLoginUser from 'utils/userUtils'
+import IconSprite from 'components/ui/iconSprite'
 // import { useDashBoardContext } from '../../../pages/Layout/DashBoardLayout';
 // type Props = {}
 type iNavProp = {
@@ -83,7 +84,7 @@ export const Navbar = () => {
           <Link to="/">
             <Heading className="my-6 flex flex-col text-center font-serif text-xl uppercase">
               {/* <IconRepository.DjokwaIcon className="mx-auto  w-3/4" /> */}
-              Icon
+              <IconSprite name="djokwa" />
             </Heading>
           </Link>
           <div className="flex items-center ">
@@ -121,7 +122,7 @@ export const Navbar = () => {
                 </Link>
               ) : (
                 <Button className="flex-none px-6 py-1">
-                  <Link to="login" className="block w-full">
+                  <Link to="/login" className="block w-full">
                     login
                   </Link>
                 </Button>
