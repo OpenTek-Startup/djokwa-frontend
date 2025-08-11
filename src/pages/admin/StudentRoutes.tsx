@@ -2,8 +2,8 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 // These components will need to be created.
-import StudentList from './student-list'
-import StudentForm from './student-form'
+import StudentList from '../../components/students/student-list'
+import StudentForm from '../../components/students/student-form'
 
 const StudentRoutes = () => (
   <>

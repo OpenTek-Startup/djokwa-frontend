@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { type Course, CourseStatus } from '../../types'
-import LoadingSpinner from '../../components/common/loading-spinner'
-import PageHeader from '../../components/layout/page-header'
-import { Button } from '../../components/ui/button'
+import LoadingSpinner from '../common/loading-spinner'
+import PageHeader from '../layout/page-header'
+import { Button } from '../ui/button'
 import {
   Table,
   TableBody,
@@ -12,8 +12,8 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '../../components/ui/table'
-import { Badge } from '../../components/ui/badge'
+} from '../ui/table'
+import { Badge } from '../ui/badge'
 import { PlusCircle, Edit, Trash2 } from 'lucide-react'
 
 // Mock data - replace with your actual API call

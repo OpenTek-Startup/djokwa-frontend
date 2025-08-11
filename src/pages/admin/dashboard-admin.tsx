@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import PageHeader from '../../components/layout/page-header'
 
-const Dashboard: React.FC = () => {
+const DashboardAdmin: React.FC = () => {
   const { t } = useTranslation('dashboard')
 
   return (
@@ -17,4 +17,4 @@ const Dashboard: React.FC = () => {
   )
 }
 
-export default Dashboard
+export default DashboardAdmin

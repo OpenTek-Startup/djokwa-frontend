@@ -1,9 +1,9 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Navbar } from './nav-bar'
-import Footer from './footer'
+import { Navbar } from '../../components/layout/nav-bar'
+import Footer from '../../components/layout/footer'
 
-const Layout: React.FC = () => {
+const LayoutGuest: React.FC = () => {
   return (
     <div className="min-h-screen bg-background/50">
       <div>
@@ -17,4 +17,4 @@ const Layout: React.FC = () => {
   )
 }
 
-export default Layout
+export default LayoutGuest

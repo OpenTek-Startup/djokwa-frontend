@@ -3,10 +3,10 @@ import { Route } from 'react-router-dom'
 import { UserRole } from './types'
 
 // Import pages/route components
-import Dashboard from './pages/dashboard/dashboard'
-import StudentRoutes from './pages/students/StudentRoutes'
-import TeacherRoutes from './pages/teachers/TeacherRoutes'
-import CourseRoutes from './pages/courses/CourseRoutes'
+import Dashboard from './pages/admin/dashboard-admin'
+import StudentRoutes from './pages/admin/StudentRoutes'
+import TeacherRoutes from './components/teachers/TeacherRoutes'
+import CourseRoutes from './components/courses/CourseRoutes'
 // Assuming you might have other role-specific pages
 // import AdminPage from './pages/admin/AdminPage';
 

@@ -6,16 +6,16 @@ import { z } from 'zod'
 import { useTranslation } from 'react-i18next'
 import { type Student, StudentStatus } from '../../types'
 
-import PageHeader from '../../components/layout/page-header'
-import { Button } from '../../components/ui/button'
-import { Input } from '../../components/ui/input'
+import PageHeader from '../layout/page-header'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '../../components/ui/select'
+} from '../ui/select'
 import {
   Form,
   FormControl,
@@ -23,7 +23,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../../components/ui/form'
+} from '../ui/form'
 
 // NOTE: For a real application, you would install react-hook-form and zod:
 // npm install react-hook-form zod @hookform/resolvers

@@ -6,16 +6,16 @@ import { z } from 'zod'
 import { useTranslation } from 'react-i18next'
 import { type Course, CourseStatus } from '../../types'
 
-import PageHeader from '../../components/layout/page-header'
-import { Button } from '../../components/ui/button'
-import { Input } from '../../components/ui/input'
+import PageHeader from '../layout/page-header'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '../../components/ui/select'
+} from '../ui/select'
 import {
   Form,
   FormControl,
@@ -23,7 +23,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../../components/ui/form'
+} from '../ui/form'
 
 const courseSchema = z.object({
   title: z.string().min(3, 'Title is required'),

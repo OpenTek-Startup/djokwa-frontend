@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Header from './header'
+import Header from '../../components/layout/header'
 import { cn } from '../../utils'
-import Sidebar from './sidebar'
+import Sidebar from '../../components/layout/sidebar'
 import { useApp } from '../../contexts/use-app'
 
 const Layout: React.FC = () => {

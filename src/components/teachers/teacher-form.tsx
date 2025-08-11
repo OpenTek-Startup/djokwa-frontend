@@ -6,8 +6,8 @@ import { z } from 'zod'
 import { useTranslation } from 'react-i18next'
 import { type Teacher, TeacherStatus } from '../../types'
 
-import PageHeader from '../../components/layout/page-header'
-import { Input } from '../../components/ui/input'
+import PageHeader from '../layout/page-header'
+import { Input } from '../ui/input'
 import {
   Form,
   FormControl,
@@ -15,15 +15,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../../components/ui/form'
-import { Button } from '../../components/ui/button'
+} from '../ui/form'
+import { Button } from '../ui/button'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '../../components/ui/select'
+} from '../ui/select'
 
 // Schema for form validation using Zod
 const teacherSchema = z.object({

@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { type Teacher, TeacherStatus } from '../../types'
 import { formatDate } from '../../utils'
 // import { api } from "../../services/api"; // Assuming an api service exists
-import LoadingSpinner from '../../components/common/loading-spinner'
-import PageHeader from '../../components/layout/page-header' // Assuming a PageHeader component
-import { Button } from '../../components/ui/button' // Assuming a UI library like shadcn/ui
+import LoadingSpinner from '../common/loading-spinner'
+import PageHeader from '../layout/page-header' // Assuming a PageHeader component
+import { Button } from '../ui/button' // Assuming a UI library like shadcn/ui
 import {
   Table,
   TableBody,
@@ -14,8 +14,8 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '../../components/ui/table' // Assuming a UI library like shadcn/ui
-import { Badge } from '../../components/ui/badge' // Assuming a UI library like shadcn/ui
+} from '../ui/table' // Assuming a UI library like shadcn/ui
+import { Badge } from '../ui/badge' // Assuming a UI library like shadcn/ui
 import { PlusCircle, Edit, Trash2 } from 'lucide-react'
 
 // Mock data - replace with your actual API call
